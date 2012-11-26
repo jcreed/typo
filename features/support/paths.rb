@@ -17,8 +17,9 @@ module NavigationHelpers
       '/'
     when /^the new article page$/
       '/admin/content/new'
-    when /^the edit article page$/
-      '/admin/content/edit/#{article_id}'
+    when /^the edit article page for "([^"]*)"$/
+      article = Article.where(:title => $1).first
+      "/admin/content/edit/#{article.id}"
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

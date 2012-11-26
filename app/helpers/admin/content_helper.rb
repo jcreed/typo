@@ -55,4 +55,5 @@ module Admin::ContentHelper
     html << "</select>"
     html << "</div>"
   end  
+
 end

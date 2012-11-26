@@ -1,5 +1,6 @@
 require 'base64'
 
+
 module Admin; end
 class Admin::ContentController < Admin::BaseController
   layout "administration", :except => [:show, :autosave]
@@ -111,6 +112,21 @@ class Admin::ContentController < Admin::BaseController
       return true
     end
     render :text => nil
+  end
+
+  def merge
+    if current_user.admin?
+      article1 = Article.find(params[:id])
+      article2 = Article.find(params[:merge_with])
+      article_merge = Article::MergeArticles.new(article1, article2)
+
+      new_article = article_merge.merge
+      redirect_to :action => :edit, :id => new_article.id
+    else
+      flash[:error] = _("Error, you are not allowed to perform this action")
+      redirect_to :action => 'index'
+    end
+    
   end
 
   protected
@@ -240,4 +256,6 @@ class Admin::ContentController < Admin::BaseController
   def setup_resources
     @resources = Resource.by_created_at
   end
+
+
 end
