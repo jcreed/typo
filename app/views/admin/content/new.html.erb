@@ -2,4 +2,4 @@
 
 <%= render "admin/shared/edit", { :form_type => "article", :form_action => { :action => "new", :id => @article.id , :class => ('autosave')} } %>
 
-<%= render :partial => 'admin/content/merge', :locals => {:article => @article} %>
+<%= render :partial => 'admin/content/merge', :locals => {:article => @article} if current_user.admin? %>
